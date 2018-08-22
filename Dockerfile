@@ -1,12 +1,12 @@
 FROM debian:wheezy
 
-MAINTAINER Suchipi Izumi "me@suchipi.com"
+MAINTAINER Suchipi Izumi "me@suchipi.com-"
 
 # ------------
 # Prepare Gmod
 # ------------
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install lib32gcc1 wget
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install lib32gcc1 wget ca-certificates net-tools lib32stdc++6 lib32z1 lib32z1-dev curl
 RUN mkdir /steamcmd
 WORKDIR /steamcmd
 RUN wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz
@@ -27,8 +27,9 @@ WORKDIR /
 RUN rm -rf /gmod-libs
 RUN cp /steamcmd/linux32/libstdc++.so.6 /gmod-base/bin/
 
-RUN mkdir /root/.steam
+RUN mkdir -p /root/.steam
 RUN mkdir /root/.steam/sdk32/
+RUN find -name libsteam /
 RUN cp /gmod-base/bin/libsteam.so /root/.steam/sdk32
 
 # ----------------------
